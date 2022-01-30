@@ -10,6 +10,7 @@ use WabLab\DI\Tests\Classes\ClassWithComplexDependencies;
 use WabLab\DI\Tests\Classes\ClassWithLoopDependencies;
 use WabLab\DI\Tests\Classes\ClassWithNullableDependencies;
 use WabLab\DI\Tests\Classes\ClassWithSimpleDependencies;
+use WabLab\DI\Tests\Classes\EmptyArgumentsClass;
 
 class DITest extends TestCase
 {
@@ -126,6 +127,12 @@ class DITest extends TestCase
 
         $di->make('testSingleton')->id = 1000;
         $this->assertEquals(1000, $di->make('testSingleton')->id);
+    }
+
+    public function testEmptyArgumentsClass()
+    {
+        $di = new DI();
+        $this->assertInstanceOf(EmptyArgumentsClass::class, $di->make(EmptyArgumentsClass::class));
     }
 
 }

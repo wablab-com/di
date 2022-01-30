@@ -72,6 +72,7 @@ class DI implements IDI
 
     protected function prepareConstructorArguments(\ReflectionClass $class, array $arguments): array
     {
+        $newObjArguments = [];
         $constructor = $class->getConstructor();
         if ($constructor) {
             $parameters = $constructor->getParameters();
