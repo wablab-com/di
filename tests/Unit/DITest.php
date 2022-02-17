@@ -7,6 +7,7 @@ use WabLab\DI\Exceptions\AliasNameIsNotRegistered;
 use WabLab\DI\Exceptions\LoopDependenciesCreationDetected;
 use WabLab\DI\Exceptions\UndefinedClassConstructorArgumentName;
 use WabLab\DI\Tests\Classes\ClassWithComplexDependencies;
+use WabLab\DI\Tests\Classes\ClassWithInterfaceDependencies;
 use WabLab\DI\Tests\Classes\ClassWithLoopDependencies;
 use WabLab\DI\Tests\Classes\ClassWithNullableDependencies;
 use WabLab\DI\Tests\Classes\ClassWithSimpleDependencies;
@@ -133,6 +134,14 @@ class DITest extends TestCase
     {
         $di = new DI();
         $this->assertInstanceOf(EmptyArgumentsClass::class, $di->make(EmptyArgumentsClass::class));
+    }
+
+    public function testClassInstantionWithInterfaceArgumentDataType()
+    {
+        $di = new DI();
+        $di->register(\Throwable::class, \Exception::class);
+        $obj = $di->make(ClassWithInterfaceDependencies::class);
+        $this->assertInstanceOf(\Exception::class, $obj->getValue());
     }
 
 }

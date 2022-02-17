@@ -94,9 +94,9 @@ class DI implements IDI
     {
         $parameterClass = $parameter->getType();
         $objArgument = null;
-        if (class_exists($parameterClass)) {
+        if (class_exists($parameterClass) || interface_exists($parameterClass)) {
             if (!$parameter->allowsNull()) {
-                $objArgument = $this->make('\\' . $parameterClass->getName());
+                $objArgument = $this->make($parameterClass->getName());
             }
         }
         return $objArgument;
